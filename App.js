@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, StyleSheet, Text, View, marginTop, 
-  Button, Image, TextInput, ScrollView, Alert} from 'react-native';
+  Button, Image, TextInput, ScrollView, Alert, Switch} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -19,6 +19,10 @@ import Home5 from './src/screens/Home5';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
+NumberList : [0,0,0,0,0
+  ,0,0,0,0,0
+  ,0,0,0,0,0
+  ,0,0,0,0,0]
 
 function Selectclass( {navigation} ) {
   return (
@@ -28,12 +32,17 @@ function Selectclass( {navigation} ) {
            <View style = {styles.main_bar}>
 
     <View style={styles.edubar}> 
-<Button title ="물리" onPress= {() => navigation.navigate('Main bar')}/>
+<Button title ="물리" onPress= {() => navigation.navigate('Main bar', {
+  itemId: 1,
+})}/>
 
-<Button title ="지구과학" onPress= {() => navigation.navigate('Main bar')}/>
+<Button title ="지구과학" onPress= {() => navigation.navigate('Main bar',{
+  itemId: 2,
+})}/>
 
-<Button title ="윤리" onPress= {() =>{ 
-  navigation.navigate('Main bar')}}
+<Button title ="윤리" onPress= {() => navigation.navigate('Main bar', {
+  itemId: 3,
+})}
     />
 </View>
 
@@ -44,16 +53,32 @@ function Selectclass( {navigation} ) {
   );
 }
 
-function Selectdate( { route , navigation} ) {
+function Selectdate( { route , navigation}, props) {
 
-  return (
+  const  { itemId }  = route.params;
+  return (  
     
     
     <View style={styles.container}>
     
      <View style = {styles.main_bar}>
-<View style={styles.edubar}> 
-<Button title ="2021년 3월" onPress= {() => navigation.navigate('1번문제')}/>
+<View style={styles.edubar}>
+
+{/* {
+  (function() {
+    if(itemId == '1') return <Button title ="2021년 3월" onPress={() => navigation.navigate('1번문제')}/>
+    else if(itemId == 2) return
+    else if(itemId == '3') return  <Button title ="물리 2021년 3월" onPress={() => navigation.navigate('3번문제')}/>
+  })
+} */}
+
+{ 
+(function(){
+if(itemId === 1) return <Button title="물리 2021 3월" onPress={() => navigation.navigate('1번문제')} ></Button>
+if(itemId === 2) return <Button title="지구 2021 3월" onPress={() => navigation.navigate('1번문제')} ></Button>
+if(itemId === 3) return <Button title="윤리 2021 3월" onPress={() => navigation.navigate('1번문제')} ></Button>
+})()
+}
 
 <Button title ="2021년 6월" onPress= {() => navigation.navigate('1번문제')}/>
 
@@ -61,8 +86,9 @@ function Selectdate( { route , navigation} ) {
 
 <Button title ="2021년 12월" onPress= {() => navigation.navigate('1번문제')}/>
 
+
 </View>
-<Text></Text>
+
      </View>
     
 
@@ -77,7 +103,7 @@ function TotalNavigation() {
 
   return (
     <NavigationContainer>
-       <Stack.Navigator initialRouteName="1번문제">
+       <Stack.Navigator initialRouteName="select">
         <Stack.Screen name="select" component={Selectclass}/>
         <Stack.Screen name="Main bar" component={Selectdate}/>
         <Stack.Screen name="1번문제" component={Home1}/>

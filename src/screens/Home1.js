@@ -1,6 +1,7 @@
 import React ,{ useState } from 'react';
 import { FlatList, StyleSheet, Text, View, marginTop, 
     Button, Image, TextInput, ScrollView, Alert} from 'react-native';
+import { concat } from 'react-native-reanimated';
 
 function Home1({navigation}) {
 
@@ -8,7 +9,6 @@ function Home1({navigation}) {
     
     const putandnext1 = function(){
       setnumber(1);
-      Alert.alert('동작함');
       navigation.navigate('2번문제')
     }
     
@@ -37,8 +37,9 @@ function Home1({navigation}) {
           <Image 
           source ={require('../../assets/301.png')}
           style={{width:'90%', height:"50%"}}></Image>
-          <Button title='1' onPress= {putandnext1}></Button>
-          <Button title='2' onPress= {putandnext2}></Button>
+          <Button title='1' onPress= {()=> 
+            putandnext1}></Button>
+          <Button title='2' key={2} onPress= {putandnext2}></Button>
           <Button title='3' onPress= {putandnext3}></Button>
           <Button title='4' onPress= {putandnext4}></Button>
           <Button title='5' onPress= {putandnext5}></Button>
